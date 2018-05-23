@@ -2,10 +2,10 @@
 Calling with RasPi, Puck.JS and Nexmo Websockets
 
 
-This project demonstrates how to initiate an outbound call via Nexmo triggered from a puck.js button, the call will then be connected to the machine that is running the code via a websocket for a 2 way audio call, this could be used for example as a fall alarm, a one button dial into a conferance call in a meeting room or as a kiosk within a public environment.
+This project demonstrates how to initiate an outbound call via Nexmo triggered from a url, the call will then be connected to the machine that is running the code via a websocket for a 2 way audio call.
 
 
-The code runs on either a Raspberry Pi 3 with an attached USB speaker and Mic or on a Macbook with BLE,
+The code runs on either a Raspberry Pi 3 with an attached USB speaker and Mic or on a Macbook,
 Note: I have had varible results using the Pi Zero W, I think it struggles to be stable.
 
 
@@ -34,4 +34,4 @@ Ngrok connected as:  https://7903af6d.eu.ngrok.io
 This confirms that the web server is running on port 8000
 You have connected to ngrok for a tunnel to expose the server to the internet
 
-Now load the ngrok url with `/call/` on the end and it will connect a call to the number you have configured as `dest` in config.json
+Now load the ngrok url with `/call` on the end and it will connect a call to the number you have configured as `dest` in config.json
