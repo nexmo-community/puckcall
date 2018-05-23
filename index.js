@@ -46,35 +46,7 @@ ngrok.once('connect', function (url) {
 ngrok.connect({ addr: 8000,
                 region: 'eu'});
 
-// Watch for BLE Button events
-var noble = require('noble');
 
-noble.on('stateChange', function(state) {
-    if (state === 'poweredOn') {
-        noble.startScanning([], true);
-    } else {
-        noble.stopScanning();
-    }
-});
-
-var lastData = {};
-noble.on('discover', function(peripheral) {
-    var data = peripheral.advertisement.serviceData;
-    lastData[peripheral.id] = lastData[peripheral.id]||{};
-
-    for (var i = 0; i < data.length; i++) {
-        var d = data[i];
-        if (lastData[peripheral.id][d.uuid] !== d.data[0]) {
-            lastData[peripheral.id][d.uuid] = d.data[0];
-            if (d.uuid == "180f"){
-                console.log(peripheral.id, peripheral.rssi, d.data[0]);
-                if (d.data[0]  > 1){
-                    makeCall();
-                }
-            }
-        }
-    }
-});
 
 var Nexmo = require('nexmo');
 var app_id = config.app_id
@@ -110,6 +82,10 @@ app.get('/', function(req, res) {
     res.send("Puckcall");
 });
 
+app.get('/call', function(req, res) {
+    makeCall();
+    res.send("Calling");
+});
 
 //Serve the NCCO on the /ncco answer URL
 app.get('/ncco', function(req, res) {
@@ -152,7 +128,6 @@ function wssend(ws, data){
 // Handle the Websocket
 app.ws('/socket', function(ws, req) {
     console.log("Websocket Connected");
-    noble.stopScanning();
     var speaker = new Speaker({
                   channels: 1,          
                   bitDepth: 16,         
@@ -186,7 +161,6 @@ app.ws('/socket', function(ws, req) {
       chunker.removeListener('data', chunker.listeners('data')[0]);
       micInstance.pause();
       speaker.end();
-      noble.startScanning([], true);
   })
 });
 
