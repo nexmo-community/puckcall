@@ -1,7 +1,7 @@
 {
   "name": "PuckCall",
   "version": "1.0.0",
-  "description": "Webocket App",
+  "description": "Websocket App",
   "main": "index.js",
   "author": "Sam Machin",
   "license": "MIT",
@@ -14,7 +14,6 @@
     "mic": "^2.1.2",
     "nexmo": "^2.1.1",
     "ngrok": "git+https://github.com/sammachin/ngrok.git",
-    "noble": "^1.8.1",
     "speaker": "^0.4.0",
     "tonegenerator": "^0.3.0",
     "waveheader": "0.0.2"
